@@ -1,3 +1,5 @@
+#! python3
+
 spam = 'Hello World!'
 print(spam.upper())
 print(spam.lower())
