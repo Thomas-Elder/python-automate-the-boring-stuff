@@ -84,3 +84,57 @@ match = dr2.search('123456789')
 print(match)
 # <re.Match object; span=(0, 3), match='123'>
 
+# testing findall.... 
+phoneregex = re.compile(r'(\d\d\d)?-(\d\d\d)-(\d\d\d\d)')
+results = phoneregex.findall('Phone numbers are 123-123-1234, -123-1234, 123')
+print(results)
+
+# More character classes
+cc1 = re.compile(r'\d') # matches any numeric value
+cc2 = re.compile(r'\D') # matches any non-numeric value
+cc3 = re.compile(r'\w') # matches any letter or numeric value, and the underscore character
+cc4 = re.compile(r'\W') # matches any non-letter, non-numeric value, and not the underscore character
+cc5 = re.compile(r'\s') # matches any space, tab or newline
+cc6 = re.compile(r'\S') # matches any character which is not space, tab or newline
+
+# Examples
+print(cc1.search('123')) # <re.Match object; span=(0, 1), match='1'>
+print(cc1.search('abc')) # None
+
+print(cc2.search('123')) # None
+print(cc2.search('abc')) # <re.Match object; span=(0, 1), match='a'>
+
+print(cc3.search('_')) # <re.Match object; span=(0, 1), match='_'>
+print(cc3.search('1')) # <re.Match object; span=(0, 1), match='1'>
+print(cc3.search('a')) # <re.Match object; span=(0, 1), match='a'>
+print(cc3.search('*')) # None
+
+print(cc4.search('*')) # <re.Match object; span=(0, 1), match='*'>
+print(cc4.search('a')) # None
+
+print(cc5.search(' ')) # <re.Match object; span=(0, 1), match=' '>
+print(cc5.search('\t')) # <re.Match object; span=(0, 1), match='\t'>
+print(cc5.search('''
+''')) # <re.Match object; span=(0, 1), match='\n'>
+print(cc5.search('1')) # None
+
+print(cc6.search(' ')) # None
+print(cc6.search('1')) # <re.Match object; span=(0, 1), match='1'>
+
+# Test time
+lyrics = '12 drummers drumming, 11 pipers piping, 10 lords a leaping, 9 ladies dancing, 8 maids a milking, 7 swans a swimming, 6 geese a laying, 5 gold rings, 4 calling birds, 3 French hens, 2 turtle doves, And 1 partridge in a pear tree'
+giftsregex = re.compile(r'\d+\s\w+')
+print(giftsregex.findall(lyrics))
+
+# We can create our own character classes by listing the chars we want between []
+cc7 = re.compile(r'[aeoiu]')
+print(cc7.findall('Hi how are you?')) # ['i', 'o', 'a', 'e', 'o', 'u']
+# [a-z] matches lower case letters
+# [A-Z] matches upper case letters
+
+cc8 = re.compile(r'[aeoiu]{2}') # matches two instances of the characters in [] in a row
+print(cc8.findall('Robocop eats baby food')) # ['ea', 'oo']
+
+# Adding a caret at the start of the character class, matches every character than ISN'T in the class
+cc9 = re.compile(r'[^aeoiu]')
+print(cc9.findall('Hi how are you?')) # ['H', ' ', 'h', 'w', ' ', 'r', ' ', 'y', '?']
