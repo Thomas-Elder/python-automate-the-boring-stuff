@@ -1,34 +1,52 @@
 #! python3
+import re
 
-# based on NA phone numbers
-def isphonenumber(text):
-    if len(text)!= 12: # it's not the right length
-        return False
-    
-    for i in range(0, 3):
-        if not text[i].isdecimal():
-            return False
-    
-    if text[3] != '-':
-        return False
+#
+# A regex pattern can just be a simple string to match
+br1 = re.compile(r'The adventures of batman and his batmobile')
+match = br1.search('The adventures of batman and his batmobile')
+print(match)
+#<re.Match object; span=(0, 42), match='The adventures of batman and his batmobile'>
 
-    for i in range(4, 7):
-        if not text[i].isdecimal():
-            return False
-    
-    if text[7] != '-':
-        return False
+match = br1.search('The adventures of batwoman and her batcopter')
+print(match)
+#None
 
-    for i in range(8, 12):
-        if not text[i].isdecimal():
-            return False
-    
-    return True
+#
+# Or we can use groups and pipes to specify possible alternative matches
+br2 = re.compile(r'The adventures of bat(man|woman) and (his|her) bat(mobile|copter)')
+match = br2.search('The adventures of batwoman and her batcopter')
+print(match)
+#<re.Match object; span=(0, 44), match='The adventures of batwoman and her batcopter'>
 
-number = '123-123-1234'
-badnumber = '12x 12p,1234'
+match = br2.search('The adventures of batman and his batmobile')
+print(match)
+#<re.Match object; span=(0, 42), match='The adventures of batman and his batmobile'>
 
-print(isphonenumber(number))
-print(isphonenumber(badnumber))
-#True
-#False
+#
+# We can use ? to specify that a group occurs once or not at all
+br3 = re.compile(r'The adventures of bat(wo)?man and (his|her) bat(mobile|copter)')
+match = br3.search('The adventures of batwoman and her batcopter')
+print(match)
+# <re.Match object; span=(0, 44), match='The adventures of batwoman and her batcopter'>
+
+#
+# We can use * to specify that a group occurs many times or not at all
+br4 = re.compile(r'The adventures of bat(wo)*man and (his|her) bat(mobile|copter)')
+match = br4.search('The adventures of batwowowoman and her batcopter')
+print(match)
+# <re.Match object; span=(0, 48), match='The adventures of batwowowoman and her batcopter'>
+
+#
+# We can use + to specify that a group occurs 1 or more times
+br5 = re.compile(r'The adventures of bat(wo)+man and (his|her) bat(mobile|copter)')
+match = br5.search('The adventures of batwoman and her batcopter')
+print(match)
+# <re.Match object; span=(0, 44), match='The adventures of batwoman and her batcopter'>
+
+match = br5.search('The adventures of batman and his batmobile')
+print(match)
+# None because wo doesn't appear in this string
+
+#
+#
