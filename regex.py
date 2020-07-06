@@ -138,3 +138,50 @@ print(cc8.findall('Robocop eats baby food')) # ['ea', 'oo']
 # Adding a caret at the start of the character class, matches every character than ISN'T in the class
 cc9 = re.compile(r'[^aeoiu]')
 print(cc9.findall('Hi how are you?')) # ['H', ' ', 'h', 'w', ' ', 'r', ' ', 'y', '?']
+
+# Adding caret at the start of the pattern only matches if the pattern is at the start of the string
+cc10 = re.compile(r'^Hello')
+print(cc10.findall('Hello, how are you?')) # ['Hello']
+print(cc10.findall('How are you? Hello')) # None
+
+# Adding a dollar sign at the end of the pattern only matches if it is at the end of the string
+cc11 = re.compile(r'you\?$')
+print(cc11.findall('Hello, how are you?')) # ['you?']
+print(cc11.findall('How are you? Hello')) # None
+
+# Use both caret and dollar sign to match the whole string
+cc12 = re.compile(r'^Hello$')
+print(cc12.findall('Hello')) # ['Hello']
+print(cc12.findall('Hello, how are you?')) # None
+
+# Or perhaps more usefully
+cc13 = re.compile(r'^\d+$') # to match only strings completely digits
+print(cc13.findall('1235156236126613615')) # ['1235156236126613615']
+print(cc13.findall('123515623x126613615')) # None
+
+# The . stands for anything except \n
+cc14 = re.compile(r'.at')
+print(cc14.findall('The cat in the hat sat on the mat.')) # ['cat', 'hat', 'sat', 'mat']
+
+# Using .* matches pretty much everything, except \n
+cc15 = re.compile(r'First name: (.*) Last name: (.*)')
+print(cc15.findall('First name: Thomas Last name: Elder')) # [('Thomas', 'Elder')]
+
+# Testing on a slightly more complicated data set? 
+names = '''First name: Thomas Last name: Elder
+First name: Finlay Last name: Thingo
+First name: Jordanna Last name: Doopidoo
+First name: Matthew Last name: Allerinor
+First name: Trudi Last name: Baddington'''
+print(cc15.findall(names)) # [('Thomas', 'Elder'), ('Finlay', 'Thingo'), ('Jordanna', 'Doopidoo'), ('Matthew', 'Allerinor'), ('Trudi', 'Baddington')]
+
+# neat.
+
+# .* is greedy, can be non-greedy by adding ?
+string = '<To serve humans> for dinner!>'
+cc16 = re.compile(r'<(.*)>')
+print(cc16.findall(string)) # ['To serve humans> for dinner!']
+
+cc17 = re.compile(r'<(.*?)>')
+print(cc17.findall(string)) # ['To serve humans']
+
