@@ -208,3 +208,20 @@ string = 'Agent Alice Cooper gave the classified information to Agent Bob Loblaw
 cc20 = re.compile(r'Agent (\w)\w* (\w)\w*')
 redactedString = cc20.sub('Agent \\1**** \\2****', string)
 print(redactedString) # Agent A**** C**** gave the classified information to Agent B**** L****
+
+# To make things more readable, we can use verbose mode when compiling a regex string, and explain what each part of the regex is doing.
+# Passing re.VERBOSE as the second parameter to compile means that whitespace is ignored in the pattern.
+# We can also comment in the string when doing this, which can make a more complicated string more comprehensible.
+cc21 = re.compile(r''' 
+((\d\d\d)|  # Area code without parentheses OR
+(\(\d\d\d\))) # Area code with parentheses
+-            # first dash
+(\d\d\d)      # first 3 digits of the phone number
+-            # second dash
+(\d\d\d\d)       # second 4 digits of the phone number
+''', re.VERBOSE)
+
+phoneNumberString = '123-123-1234 (123)-123-1234 123-123-1234x1234 (123)-123-1234x12'
+print(cc21.findall(phoneNumberString))
+# [('123', '123', '', '123', '1234'), ('(123)', '', '(123)', '123', '1234'), ('123', '123', '', '123', '1234'), ('(123)', '', '(123)', '123', '1234')]
+# Not exactly what I was after..... working on.
