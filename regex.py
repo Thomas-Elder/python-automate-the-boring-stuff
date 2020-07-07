@@ -185,3 +185,26 @@ print(cc16.findall(string)) # ['To serve humans> for dinner!']
 cc17 = re.compile(r'<(.*?)>')
 print(cc17.findall(string)) # ['To serve humans']
 
+#
+# Ok more regex methods.
+# We already use search which returns a match object of the first match of the pattern
+# And findall which matches all occurances
+# Here is the sub() method, which finds and replaces
+
+string = 'Agent Alice gave the classified information to Agent Bob'
+cc18 = re.compile(r'Agent \w+')
+redactedString = cc18.sub('REDACTED', string)
+print(redactedString) # REDACTED gave the classified information to REDACTED
+
+# A more complicated version. Here we group the part of the pattern we want to use in the substituted string (just the first letter of their name).
+cc19 = re.compile(r'Agent (\w)\w*')
+
+# Then here in the substitution we refer to the group we want to use in the substitution (group 1)
+redactedString = cc19.sub('Agent \\1****', string) 
+print(redactedString) # Agent A**** gave the classified information to Agent B****
+
+# Let's try this with multiple groups to make sure I've got this straight. 
+string = 'Agent Alice Cooper gave the classified information to Agent Bob Loblaw'
+cc20 = re.compile(r'Agent (\w)\w* (\w)\w*')
+redactedString = cc20.sub('Agent \\1**** \\2****', string)
+print(redactedString) # Agent A**** C**** gave the classified information to Agent B**** L****
