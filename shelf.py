@@ -9,3 +9,13 @@ shelfFile['exercises'] = ['snatch', 'clean and jerk', 'front squat', 'push press
 
 print(shelfFile['exercises']) # ['snatch', 'clean and jerk', 'front squat', 'push press']
 shelfFile.close()
+
+# You can access the keys from the shelf
+shelfFile = shelve.open('myShelf')
+print(list(shelfFile.keys())) # ['exercises']
+shelfFile.close()
+
+# You can access the values from the shelf
+shelfFile = shelve.open('myShelf')
+print(list(shelfFile.values())) # [['snatch', 'clean and jerk', 'front squat', 'push press']]
+shelfFile.close()
