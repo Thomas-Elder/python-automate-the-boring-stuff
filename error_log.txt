@@ -14,3 +14,11 @@ Traceback (most recent call last):
 Exception: Symbol needs to be length of 1
 
 
+Traceback (most recent call last):
+  File ".\raise.py", line 28, in <module>
+    boxPrint('tt', 15, 5)
+  File ".\raise.py", line 8, in boxPrint
+    raise Exception('Symbol needs to be length of 1')
+Exception: Symbol needs to be length of 1
+
+
