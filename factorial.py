@@ -1,7 +1,7 @@
 #! python3
 
 import logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='factorial_log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # There are different logging levels, debug, info, warning, error and critical (from least important to most)
 # We can disable logging at different levels, by calling disable, and passing it the desired level. 
@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 #logging.disable(logging.CRITICAL)
 
 # Or we could just disable DEBUG messages
-logging.disable(logging.DEBUG)
+#logging.disable(logging.DEBUG)
 
 logging.info('Start of program')
 

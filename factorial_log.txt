@@ -1,0 +1,17 @@
+2020-07-13 11:45:20,991 - INFO - Start of program
+2020-07-13 11:45:20,992 - INFO - Start of factorial 0
+2020-07-13 11:45:20,992 - ERROR - Function doesn't handle 0 as a parameter
+2020-07-13 11:45:20,992 - INFO - Start of factorial 4
+2020-07-13 11:45:20,992 - DEBUG - i is 1 and total is 1
+2020-07-13 11:45:20,992 - DEBUG - i is 2 and total is 2
+2020-07-13 11:45:20,992 - DEBUG - i is 3 and total is 6
+2020-07-13 11:45:20,992 - DEBUG - i is 4 and total is 24
+2020-07-13 11:45:20,992 - DEBUG - Return value is 24
+2020-07-13 11:45:20,992 - INFO - Start of factorial 5
+2020-07-13 11:45:20,992 - DEBUG - i is 1 and total is 1
+2020-07-13 11:45:20,992 - DEBUG - i is 2 and total is 2
+2020-07-13 11:45:20,992 - DEBUG - i is 3 and total is 6
+2020-07-13 11:45:20,992 - DEBUG - i is 4 and total is 24
+2020-07-13 11:45:20,992 - DEBUG - i is 5 and total is 120
+2020-07-13 11:45:20,993 - DEBUG - Return value is 120
+2020-07-13 11:45:20,993 - INFO - End of program
