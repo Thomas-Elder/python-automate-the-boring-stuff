@@ -7,6 +7,7 @@ import pyperclip
 import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.disable(logging.CRITICAL)
 
 if len(sys.argv) > 1:
     logging.debug('sys.argv > 1, location parameters entered.')
