@@ -18,8 +18,8 @@ if len(sys.argv) > 1:
 
     webbrowser.open('https://www.google.com.au/maps/place/%s' % (location))
 
-elif pyperclip.paste() == '':
-    logging.info('Clipboard is empty')
+elif pyperclip.paste() != '':
+    logging.info('Clipboard is not empty')
 
     clipboard = pyperclip.paste()
     logging.debug(clipboard)
