@@ -1,20 +1,23 @@
 #! python3
 
 # imports
-import sys
+import os
 import logging
-import requests
+import urllib.request
 
 # logging
 logging.basicConfig(filename='..\\logs\\xkcd.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # ping
 url = 'https://xkcd.com/'
+comicNumber = 2332
 
-repsonse = requests.get(url)
+if not os.path.exists('.\\xkcdImages'):
+    os.mkdir('.\\xkcdImages')
 
-try: 
-    repsonse.raise_for_status()
+while comicNumber > 0:
+    comicUrl = url + str(comicNumber)
 
-except:
-    logging.debug('Request failed, status: %s' % (repsonse.status_code))
+    logging.debug('Retrieving image from: %s' % (comicUrl))
+    urllib.request.urlretrieve(comicUrl)
+    comicNumber -= 1
