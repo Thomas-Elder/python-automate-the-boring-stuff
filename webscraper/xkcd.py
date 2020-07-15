@@ -25,3 +25,12 @@ while comicNumber > 2300:
     #
     #urllib.request.urlretrieve(comicUrl, comicFile)
     comicNumber -= 1
+
+# quick test
+urllib.request.urlretrieve('https://imgs.xkcd.com/comics/cursed_chair.png', '.\\xkcdImages\\xkcd_2332.png')
+
+# ok this works. So that's the src attribute on the <img> tag that contains the image. 
+# So I need to parse the page, get this image
+# It's in a div with the id='comic', which I assume is unique. 
+#
+# So I need to get this div, then get the <img> in it, and then just urlretrieve 'https:' + src 
