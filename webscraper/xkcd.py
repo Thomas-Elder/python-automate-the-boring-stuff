@@ -15,9 +15,13 @@ comicNumber = 2332
 if not os.path.exists('.\\xkcdImages'):
     os.mkdir('.\\xkcdImages')
 
-while comicNumber > 0:
+while comicNumber > 2300:
     comicUrl = url + str(comicNumber)
+    comicFile = '.\\xkcdImages\\xkcd_' + str(comicNumber) + '.png'
 
     logging.debug('Retrieving image from: %s' % (comicUrl))
-    urllib.request.urlretrieve(comicUrl)
+
+    # Ok so this gets me the pages the comic is on, but I need to access the actual image source...
+    #
+    #urllib.request.urlretrieve(comicUrl, comicFile)
     comicNumber -= 1
