@@ -3,6 +3,8 @@
 # imports
 import os
 import logging
+import bs4
+import requests
 import urllib.request
 
 # logging
@@ -10,27 +12,37 @@ logging.basicConfig(filename='..\\logs\\xkcd.log', level=logging.DEBUG, format='
 
 # ping
 url = 'https://xkcd.com/'
-comicNumber = 2332
+comicNumber = 2333
 
 if not os.path.exists('.\\xkcdImages'):
     os.mkdir('.\\xkcdImages')
 
-while comicNumber > 2300:
-    comicUrl = url + str(comicNumber)
-    comicFile = '.\\xkcdImages\\xkcd_' + str(comicNumber) + '.png'
+while comicNumber > 2332:
+    response = requests.get(url) 
+    
+    try:
+        response.raise_for_status()
 
-    logging.debug('Retrieving image from: %s' % (comicUrl))
+        soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
-    # Ok so this gets me the pages the comic is on, but I need to access the actual image source...
-    #
-    #urllib.request.urlretrieve(comicUrl, comicFile)
+        # Identify the div that contains the comic, by id='comic' ...
+        comicDiv = soup.find('div', {'id':'comic'})
+
+        # Then find the img tag within that div ... 
+        comicImg = comicDiv.find('img')
+
+        # Then extract the source attribute ... 
+        comicSrc = 'https:' + comicImg['src']
+
+        comicFile = '.\\xkcdImages\\xkcd_' + str(comicNumber) + '.png'
+
+        # Then retrieve the image:
+        urllib.request.urlretrieve(comicSrc, comicFile)
+
+        # This works for one image, now I need to change the url to the previous image, 
+        # continually until we're all out of images. 
+
+    except:
+        print('Invalid response status, %s' % (response.status_code))
+
     comicNumber -= 1
-
-# quick test
-urllib.request.urlretrieve('https://imgs.xkcd.com/comics/cursed_chair.png', '.\\xkcdImages\\xkcd_2332.png')
-
-# ok this works. So that's the src attribute on the <img> tag that contains the image. 
-# So I need to parse the page, get this image
-# It's in a div with the id='comic', which I assume is unique. 
-#
-# So I need to get this div, then get the <img> in it, and then just urlretrieve 'https:' + src 
