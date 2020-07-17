@@ -10,11 +10,7 @@ import urllib.request
 # logging - filename='..\\logs\\xkcd.log', 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def getImage(response):
-    response.raise_for_status()
-
-    soup = bs4.BeautifulSoup(response.text, 'html.parser')
-
+def getImage(soup):  
     # Identify the div that contains the comic, by id='comic' ...
     comicDiv = soup.find('div', {'id':'comic'})
 
@@ -29,6 +25,10 @@ def getImage(response):
     # Then retrieve the image:
     urllib.request.urlretrieve(comicSrc, comicFile)
 
+def getPreviousPage(response):
+    # Use this response to find the 'prev' button, and return that url, so it can be passed to the next getImage call
+    pass
+
 # ping
 url = 'https://xkcd.com/'
 comicNumber = 2333
@@ -40,7 +40,9 @@ while comicNumber > 2332:
     response = requests.get(url) 
     
     try:
-        getImage(response)
+        response.raise_for_status()
+        soup = bs4.BeautifulSoup(response.text, 'html.parser')
+        getImage(soup)
 
         # This works for one image, now I need to change the url to the previous image, 
         # continually until we're all out of images. 
