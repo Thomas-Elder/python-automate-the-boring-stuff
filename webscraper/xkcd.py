@@ -25,18 +25,25 @@ def getImage(soup):
     # Then retrieve the image:
     urllib.request.urlretrieve(comicSrc, comicFile)
 
-def getPreviousPage(response):
+def getPreviousPage(soup):
     # Use this response to find the 'prev' button, and return that url, so it can be passed to the next getImage call
-    pass
+    
+    # Get the ul for the nav, using the class
+    previous = soup.find('a', {'rel':'prev'})
+
+    previousUrl = StartingUrl + previous['href']
+
+    return previousUrl
 
 # ping
-url = 'https://xkcd.com/'
+StartingUrl = 'https://xkcd.com'
 comicNumber = 2333
 
 if not os.path.exists('.\\xkcdImages'):
     os.mkdir('.\\xkcdImages')
 
-while comicNumber > 2332:
+while comicNumber > 2330:
+    url = StartingUrl
     response = requests.get(url) 
     
     try:
@@ -44,12 +51,12 @@ while comicNumber > 2332:
         soup = bs4.BeautifulSoup(response.text, 'html.parser')
         getImage(soup)
 
-        # This works for one image, now I need to change the url to the previous image, 
-        # continually until we're all out of images. 
+        prev = getPreviousPage(soup)
 
     except:
         print('Invalid response status, %s' % (response.status_code))
 
     # Here I need a new request for the previous comic
 
+    url = prev
     comicNumber -= 1
