@@ -11,12 +11,18 @@ import urllib.request
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def getImage(url: str, comicNumber: int):
-    ''' getImage takes a URL for xkcd.com, downloads and saves that image.
+    ''' getImage downloads and saves an xkcd comic.
     
+    getImage requests the page at the given url, parses that html for the comic, 
+    then downloads the image src and saves it to a file.
+
     Parameters
     ----------
     url : str
     The url of the page to retrieve the comic from
+
+    comicNumber: int
+    A number used to create the filename the comic is saved as
     '''
 
     try:
@@ -75,8 +81,8 @@ def getPreviousPage(url: str) -> str:
         return 'https://xkcd.com' + previous['href']
 
 # ping
-url = 'https://xkcd.com/2'
-comicNumber = 2
+url = 'https://xkcd.com'
+comicNumber = 2334
 
 if not os.path.exists('.\\xkcdImages'):
     os.mkdir('.\\xkcdImages')
