@@ -38,7 +38,18 @@ def getImage(url) -> str:
 
 def getPreviousPage(url) -> str:
     '''getPreviousPage parses the response from the url to find the 'prev' button
-    and return the url to the previous comic. '''
+    and return the url to the previous comic. 
+    
+    Parameters
+    ----------
+    url : str
+    The url of the current page
+    
+    Returns
+    -------
+    previousUrl : str
+    The url of the previous comic
+    '''
 
     try:
         response = requests.get(url)
