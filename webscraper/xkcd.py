@@ -11,7 +11,13 @@ import urllib.request
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def getImage(url) -> str:
-    ''' getImage takes a URL for xkcd.com, downloads and saves that image.'''
+    ''' getImage takes a URL for xkcd.com, downloads and saves that image.
+    
+    Parameters
+    ----------
+    url : str
+    The url of the page to retrieve the comic from
+    '''
 
     try:
         response = requests.get(url)
