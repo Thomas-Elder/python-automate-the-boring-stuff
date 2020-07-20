@@ -10,7 +10,7 @@ import urllib.request
 # logging - filename='..\\logs\\xkcd.log', 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def getImage(url) -> str:
+def getImage(url: str, comicNumber: int):
     ''' getImage takes a URL for xkcd.com, downloads and saves that image.
     
     Parameters
@@ -42,7 +42,7 @@ def getImage(url) -> str:
     # Then retrieve the image:
     urllib.request.urlretrieve(comicSrc, comicFile)
 
-def getPreviousPage(url) -> str:
+def getPreviousPage(url: str) -> str:
     '''getPreviousPage parses the response from the url to find the 'prev' button
     and return the url to the previous comic. 
     
@@ -82,6 +82,6 @@ if not os.path.exists('.\\xkcdImages'):
     os.mkdir('.\\xkcdImages')
 
 while url != None:
-    getImage(url)
+    getImage(url, comicNumber)
     url = getPreviousPage(url)
     comicNumber -= 1
