@@ -69,20 +69,17 @@ def getPreviousPage(url) -> str:
     # Get the ul for the nav, using the class
     previous = soup.find('a', {'rel':'prev'})
 
-    previousUrl = StartingUrl + previous['href']
-
+    previousUrl = 'https://xkcd.com' + previous['href']
     return previousUrl
 
 # ping
-StartingUrl = 'https://xkcd.com'
+url = 'https://xkcd.com'
 comicNumber = 2333
 
 if not os.path.exists('.\\xkcdImages'):
     os.mkdir('.\\xkcdImages')
 
 while comicNumber > 2330:
-    url = StartingUrl
     getImage(url)
-    prev = getPreviousPage(url)
-    url = prev
+    url = getPreviousPage(url)
     comicNumber -= 1
