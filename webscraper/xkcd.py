@@ -40,16 +40,20 @@ def getImage(url: str, comicNumber: int):
     # Then find the img tag within that div ... 
     comicImg = comicDiv.find('img')
 
-    # Then extract the source attribute ... 
-    comicSrc = 'https:' + comicImg['src']
+    # I found one comic that isn't on the page as an img, so we'll check for None, and 
+    # only attempt to dl/save the img if it exists.
+    if comicImg != None:
+    
+        # Then extract the source attribute ... 
+        comicSrc = 'https:' + comicImg['src']
 
-    comicFile = '.\\xkcdImages\\xkcd_' + str(comicNumber) + '.png'
+        comicFile = '.\\xkcdImages\\xkcd_' + str(comicNumber) + '.png'
 
-    # Then retrieve the image:
-    urllib.request.urlretrieve(comicSrc, comicFile)
+        # Then retrieve the image:
+        urllib.request.urlretrieve(comicSrc, comicFile)
 
 def getPreviousPage(url: str) -> str:
-    '''getPreviousPage takes an xkcd url and returns the url of the prev comic
+    '''getPreviousPage takes an xkcd url and returns the url of the prev comic.
     
     It parses the response from the url to find the 'prev' button and returns the url 
     to the previous comic. 
