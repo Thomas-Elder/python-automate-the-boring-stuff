@@ -49,8 +49,10 @@ def getImage(url: str, comicNumber: int):
     urllib.request.urlretrieve(comicSrc, comicFile)
 
 def getPreviousPage(url: str) -> str:
-    '''getPreviousPage parses the response from the url to find the 'prev' button
-    and return the url to the previous comic. 
+    '''getPreviousPage takes an xkcd url and returns the url of the prev comic
+    
+    It parses the response from the url to find the 'prev' button and returns the url 
+    to the previous comic. 
     
     Parameters
     ----------
@@ -61,6 +63,7 @@ def getPreviousPage(url: str) -> str:
     -------
     previousUrl : str
     The url of the previous comic
+    Returns None if the previous comic is # (prev is # on comic 1)
     '''
 
     try:
